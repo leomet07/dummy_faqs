@@ -28,11 +28,11 @@
 		<Link to="about">About</Link>
 	</nav>
 	<div>
-		<Route path="about"><About /></Route>
-		<Route path="faqs"><FAQS /></Route>
-		<Route path="questions"><Questions /></Route>
-		<Route path="account"><Account /></Route>
-		<Route path="/"><Home /></Route>
+		<Route class="route" path="about"><About /></Route>
+		<Route class="route" path="faqs"><FAQS /></Route>
+		<Route class="route" path="questions"><Questions /></Route>
+		<Route class="route" path="account"><Account /></Route>
+		<Route class="route" path="/"><Home /></Route>
 	</div>
 </Router>
 
