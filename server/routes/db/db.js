@@ -1,5 +1,9 @@
 const router = require("express").Router();
 const FAQ = require("../../model/FAQ");
+const verifyToken = require("../auth/verifyTokenMiddleware");
+
+router.use(verifyToken);
+
 // Base route
 router.get("/", async (req, res) => {
 	res.json({ message: "Index for db" });
