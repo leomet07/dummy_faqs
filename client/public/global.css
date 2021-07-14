@@ -21,12 +21,14 @@ body {
 	text-align: center;
 }
 
-a {
+a,
+.link {
 	color: rgb(121, 157, 192);
 	text-decoration: none;
 }
 
-a:hover {
+a:hover,
+.link:hover {
 	text-decoration: underline;
 }
 

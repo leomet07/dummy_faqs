@@ -1,7 +1,7 @@
 <!-- App.svelte -->
 <script>
 	import { onMount } from "svelte";
-	import { Router, Link, Route } from "svelte-routing";
+	import { Router, Link, Route, navigate } from "svelte-routing";
 	import Home from "./routes/Home.svelte";
 	import About from "./routes/About.svelte";
 	import FAQS from "./routes/FAQS.svelte";
@@ -24,7 +24,7 @@
 
 		console.log("Local Auth Token: ", localAuthToken);
 
-		if (localAuthToken) {
+		if (localAuthToken && localAuthToken != "") {
 			// Verify the token
 			const response = await fetch(
 				window.BASE_URL + "/api/auth/verify/" + localAuthToken,
@@ -46,6 +46,12 @@
 		}
 	});
 
+	async function logout() {
+		window.localStorage.setItem("auth-token", "");
+		$validauthtoken = "";
+		navigate("/", { replace: true });
+	}
+
 	export let url = "";
 </script>
 
@@ -56,6 +62,7 @@
 			<Link to="faqs">Faqs</Link> |
 			<Link to="questions">Questions</Link> |
 			<Link to="account">Account</Link> |
+			<span on:click={logout} class="link">Logout</span> |
 		{:else}
 			<Link to="login">Login</Link> |
 		{/if}
