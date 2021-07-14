@@ -1,15 +1,21 @@
 <script>
 	let faqs = [];
+	import { validauthtoken } from "../stores";
 	(async () => {
-		faqs = await get_faqs({});
-		console.log(faqs);
+		validauthtoken.subscribe(async (val) => {
+			if (val != "") {
+				faqs = await get_faqs({}, val);
+				console.log(faqs);
+			}
+		});
 	})();
-	async function get_faqs(body) {
+	async function get_faqs(body, auth_token) {
 		let response = await fetch(window.BASE_URL + "/api/db/get_faqs", {
 			method: "POST",
 			body: JSON.stringify(body),
 			headers: {
 				"Content-Type": "application/json",
+				"auth-token": auth_token,
 			},
 		});
 		let json = await response.json();
