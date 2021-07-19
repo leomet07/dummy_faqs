@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../../model/User");
+const userRouter = require("./user/user").router;
 
 const { registerValidation, loginValidation } = require("./validation");
 const jwt = require("jsonwebtoken");
@@ -122,12 +123,9 @@ router.get("/verify/:id", async (req, res) => {
 		const uid = verified._id;
 
 		const userisAdmin = await checkIsAdmin(uid);
-		const data = {};
+
 		if (verified) {
-			data.valid = true;
-			data.isAdmin = userisAdmin;
-			data.uid = uid;
-			res.send(data);
+			res.send({ valid: true, isAdmin: userisAdmin, uid: uid });
 		}
 	} catch (err) {
 		console.log("err in /verify", err);
@@ -136,6 +134,9 @@ router.get("/verify/:id", async (req, res) => {
 		});
 	}
 });
+
+router.use("/user", userRouter);
+
 async function checkIsAdmin(uid) {
 	const user = await User.findById(uid);
 	return user.isAdmin;
