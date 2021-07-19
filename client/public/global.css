@@ -25,6 +25,7 @@ a,
 .link {
 	color: rgb(121, 157, 192);
 	text-decoration: none;
+	cursor: pointer;
 }
 
 a:hover,
