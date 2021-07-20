@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const FAQ = require("../../model/FAQ");
+const Question = require("../../model/Question");
 const verifyToken = require("../auth/verifyTokenMiddleware");
 
 router.use(verifyToken);
@@ -10,36 +10,36 @@ router.get("/", async (req, res) => {
 });
 
 // Create an item
-router.get("/get_faqs", get_faqs_handler);
-router.post("/get_faqs", get_faqs_handler);
+router.get("/get_questions", get_questions_handler);
+router.post("/get_questions", get_questions_handler);
 // Create an item
-router.post("/create_faq", async (req, res, next) => {
+router.post("/create_question", async (req, res, next) => {
 	try {
-		const saved_faq = await create_faq(req.body);
+		const saved_question = await create_question(req.body);
 		res.json({
-			faq: saved_faq,
-			description: "Successfully created the FAQ.",
+			question: saved_question,
+			description: "Successfully created the question.",
 		});
 	} catch (error) {
 		next(error);
 	}
 });
 
-async function create_faq(query) {
-	let faq = await FAQ.create(query);
-	let saved_faq = await faq.save();
-	return saved_faq;
+async function create_question(query) {
+	let question = await Question.create(query);
+	let saved_question = await question.save();
+	return saved_question;
 }
-async function get_faqs(query) {
-	let faqs = await FAQ.find(query);
-	return faqs;
+async function get_questions(query) {
+	let questions = await Question.find(query);
+	return questions;
 }
-async function get_faqs_handler(req, res, next) {
+async function get_questions_handler(req, res, next) {
 	try {
-		const faqs = await get_faqs(req.body || {});
+		const questions = await get_questions(req.body || {});
 		res.json({
-			faqs: faqs,
-			description: "Successfully retrieved FAQs.",
+			questions: questions,
+			description: "Successfully retrieved questions.",
 		});
 	} catch (error) {
 		next(error);

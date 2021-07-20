@@ -24,5 +24,6 @@
 {#if user_data}
 	<h3>Name: {user_data.name}</h3>
 	<h3>Email: {user_data.email}</h3>
+	<h3>{user_data.isAdmin ? "An " : "Not an"} admin.</h3>
 {:else}
 	<h2>Loading</h2>{/if}
